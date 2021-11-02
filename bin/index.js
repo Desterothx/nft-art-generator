@@ -447,10 +447,7 @@ function generateMetadataObject(id, images) {
   images.forEach((image, i) => {
     let pathArray = image.split('/');
     let fileToMap = pathArray[pathArray.length - 1];
-    metaData[id].attributes.push({
-      trait_type: traits[order[i]],
-      value: names[fileToMap],
-    });
+    metaData[id].attributes.push(names[fileToMap]);
   });
 }
 
