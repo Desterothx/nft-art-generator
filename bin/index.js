@@ -152,9 +152,9 @@ function exportToCsv(filename, rows) {
 function addUniqeObj(data) {
   let index = -1;
 
-  for(let i = 0, i < koko.length; i++) {
-    if(koko[i].id === data.id) {
-      index = i;
+  for(let pl = 0, pl < koko.length; pl++) {
+    if(koko[pl].id === data.id) {
+      index = pl;
     }
   }
 
