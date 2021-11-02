@@ -483,9 +483,6 @@ function existCombination(contains) {
 
 function generateMetadataObject(id, images) {
   metaData[id] = {
-    name: config.metaData.name + '#' + id,
-    description: config.metaData.description,
-    image: config.imageUrl + id,
     attributes: [],
   };
   ko[0]=id;
