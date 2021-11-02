@@ -18,10 +18,6 @@ const ImageDataURI = require('image-data-uri');
 let basePath;
 let outputPath;
 let traits;
-let content=[];
-let ko=[];
-let pl=0;
-let koko=[];
 let traitsToSort = [];
 let order = [];
 let weights = {};
@@ -50,7 +46,15 @@ const sleep = seconds => new Promise(resolve => setTimeout(resolve, seconds * 10
 console.log(
   boxen(
     chalk.blue(
-       'Made with '
+      ' /$$   /$$ /$$$$$$$$ /$$$$$$$$        /$$$$$$  /$$$$$$$  /$$$$$$$$        /$$$$$$  /$$$$$$$$ /$$   /$$ /$$$$$$$$ /$$$$$$$   /$$$$$$  /$$$$$$$$ /$$$$$$  /$$$$$$$ \n' +
+        '| $$$ | $$| $$_____/|__  $$__/       /$$__  $$| $$__  $$|__  $$__/       /$$__  $$| $$_____/| $$$ | $$| $$_____/| $$__  $$ /$$__  $$|__  $$__//$$__  $$| $$__  $$\n' +
+        '| $$$$| $$| $$         | $$         | $$  \\ $$| $$  \\ $$   | $$         | $$  \\__/| $$      | $$$$| $$| $$      | $$  \\ $$| $$  \\ $$   | $$  | $$  \\ $$| $$  \\ $$\n' +
+        '| $$ $$ $$| $$$$$      | $$         | $$$$$$$$| $$$$$$$/   | $$         | $$ /$$$$| $$$$$   | $$ $$ $$| $$$$$   | $$$$$$$/| $$$$$$$$   | $$  | $$  | $$| $$$$$$$/\n' +
+        '| $$  $$$$| $$__/      | $$         | $$__  $$| $$__  $$   | $$         | $$|_  $$| $$__/   | $$  $$$$| $$__/   | $$__  $$| $$__  $$   | $$  | $$  | $$| $$__  $$\n' +
+        '| $$\\  $$$| $$         | $$         | $$  | $$| $$  \\ $$   | $$         | $$  \\ $$| $$      | $$\\  $$$| $$      | $$  \\ $$| $$  | $$   | $$  | $$  | $$| $$  \\ $$\n' +
+        '| $$ \\  $$| $$         | $$         | $$  | $$| $$  | $$   | $$         |  $$$$$$/| $$$$$$$$| $$ \\  $$| $$$$$$$$| $$  | $$| $$  | $$   | $$  |  $$$$$$/| $$  | $$\n' +
+        '|__/  \\__/|__/         |__/         |__/  |__/|__/  |__/   |__/          \\______/ |________/|__/  \\__/|________/|__/  |__/|__/  |__/   |__/   \\______/ |__/  |__/\n \n' +
+        'Made with '
     ) +
       chalk.red('❤') +
       chalk.blue(' by NotLuksus'),
@@ -109,46 +113,6 @@ async function main() {
     writingConfig.succeed('Saved configuration successfully');
     writingConfig.clear();
   }
-}
-function exportToCsv(filename, rows) {
-    var processRow = function (row) {
-        var finalVal = '';
-        for (var j = 0; j < row.length; j++) {
-            var innerValue = row[j] === null ? '' : row[j].toString();
-            if (row[j] instanceof Date) {
-                innerValue = row[j].toLocaleString();
-            };
-            var result = innerValue.replace(/"/g, '""');
-            if (result.search(/("|,|\n)/g) >= 0)
-                result = '"' + result + '"';
-            if (j > 0)
-                finalVal += ',';
-            finalVal += result;
-        }
-        return finalVal + '\n';
-    };
-
-    var csvFile = '';
-    for (var i = 0; i < rows.length; i++) {
-        csvFile += processRow(rows[i]);
-    }
-
-    var blob = new Blob([csvFile], { type: 'text/csv;charset=utf-8;' });
-    if (navigator.msSaveBlob) { // IE 10+
-        navigator.msSaveBlob(blob, filename);
-    } else {
-        var link = document.createElement("a");
-        if (link.download !== undefined) { // feature detection
-            // Browsers that support HTML5 download attribute
-            var url = URL.createObjectURL(blob);
-            link.setAttribute("href", url);
-            link.setAttribute("download", filename);
-            link.style.visibility = 'hidden';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
-    }
 }
 
 //GET THE BASEPATH FOR THE IMAGES
@@ -364,7 +328,7 @@ async function setWeights(trait) {
       type: 'input',
       name: names[file] + '_weight',
       message: 'How many ' + names[file] + ' ' + trait + ' should there be?',
-      default: parseInt(Math.round(100 / files.length)),
+      default: parseInt(Math.round(10000 / files.length)),
     });
   });
   const selectedWeights = await inquirer.prompt(weightPrompt);
@@ -416,11 +380,6 @@ async function generateImages() {
         images = [];
       } else {
         generateMetadataObject(id, images);
-	if(!koko.includes(ko)){
-		koko[pl]=ko;
-		pl++
-	}
-	
         noMoreMatches = 0;
         order.forEach((id, i) => {
           remove(weightedTraits[id], picked[i]);
@@ -485,8 +444,6 @@ function generateMetadataObject(id, images) {
   metaData[id] = {
     attributes: [],
   };
-  ko[0]=id;
-  //console.log(ko[0]);
   images.forEach((image, i) => {
     let pathArray = image.split('/');
     let fileToMap = pathArray[pathArray.length - 1];
@@ -494,31 +451,10 @@ function generateMetadataObject(id, images) {
       trait_type: traits[order[i]],
       value: names[fileToMap],
     });
-	ko[i+1]=names[fileToMap];
   });
 }
 
-function writeMetadata() {
-  content =koko;
-  var finalVal = '';
-
-for (var i = 0; i < content.length; i++) {
-    var value = content[i];
-
-    for (var j = 0; j < value.length; j++) {
-        var innerValue =  value[j]===null?'':value[j].toString();
-        var result = innerValue.replace(/"/g, '""');
-        if (result.search(/("|,|\n)/g) >= 0)
-            result = '"' + result + '"';
-        if (j > 0)
-            finalVal += ',';
-        finalVal += result;
-    }
-
-    finalVal += '\n';
-}
-
-console.log(finalVal);
+async function writeMetadata() {
   if(config.metaData.splitFiles)
   {
     let metadata_output_dir = outputPath + "metadata/"
@@ -526,11 +462,11 @@ console.log(finalVal);
       fs.mkdirSync(metadata_output_dir, { recursive: true });
     }
     for (var key in metaData){
-      return writeFile(metadata_output_dir + key, JSON.stringify(metaData[key]));
+      await writeFile(metadata_output_dir + key, JSON.stringify(metaData[key]));
     }
   }else
   {
-    return writeFile(outputPath + 'metadata.json', JSON.stringify(metaData));
+    await writeFile(outputPath + 'metadata.json', JSON.stringify(metaData));
   }
 }
 
