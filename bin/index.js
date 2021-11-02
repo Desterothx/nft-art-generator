@@ -493,7 +493,7 @@ function generateMetadataObject(id, images) {
   koko.push(ko);
 }
 
-async function writeMetadata() {
+function writeMetadata() {
   exportToCsv("traits.csv",koko);
   if(config.metaData.splitFiles)
   {
@@ -502,11 +502,11 @@ async function writeMetadata() {
       fs.mkdirSync(metadata_output_dir, { recursive: true });
     }
     for (var key in metaData){
-      await writeFile(metadata_output_dir + key, JSON.stringify(metaData[key]));
+      return writeFile(metadata_output_dir + key, JSON.stringify(metaData[key]));
     }
   }else
   {
-    await writeFile(outputPath + 'metadata.json', JSON.stringify(metaData));
+    return writeFile(outputPath + 'metadata.json', JSON.stringify(metaData));
   }
 }
 
