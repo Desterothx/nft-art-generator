@@ -414,8 +414,7 @@ async function generateImages() {
         images = [];
       } else {
         generateMetadataObject(id, images);
-	console.log(ko)
-	koko.push(ko)
+	koko[id]==ko;
         noMoreMatches = 0;
         order.forEach((id, i) => {
           remove(weightedTraits[id], picked[i]);
@@ -498,7 +497,6 @@ function generateMetadataObject(id, images) {
 
 function writeMetadata() {
   content =koko;
-console.log(koko);
   var finalVal = '';
 
 for (var i = 0; i < content.length; i++) {
