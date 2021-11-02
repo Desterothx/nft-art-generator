@@ -149,6 +149,22 @@ function exportToCsv(filename, rows) {
         }
     }
 }
+function addUniqeObj(data) {
+  let index = -1;
+
+  for(let i = 0, i < koko.length; i++) {
+    if(koko[i].id === data.id) {
+      index = i;
+    }
+  }
+
+  if(index > -1) {
+    koko[index] = data;
+  } else {
+    koko.push(data)
+  }
+
+}
 //GET THE BASEPATH FOR THE IMAGES
 async function getBasePath() {
   if (config.basePath !== undefined) { 
@@ -414,7 +430,7 @@ async function generateImages() {
         images = [];
       } else {
         generateMetadataObject(id, images);
-	koko.push(ko);
+	addUniqeObj(ko);
 	console.log(koko);
         noMoreMatches = 0;
         order.forEach((id, i) => {
