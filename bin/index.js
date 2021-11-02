@@ -482,6 +482,7 @@ function generateMetadataObject(id, images) {
     attributes: [],
   };
   ko[0]=id;
+  console.log(ko[0]);
   images.forEach((image, i) => {
     let pathArray = image.split('/');
     let fileToMap = pathArray[pathArray.length - 1];
@@ -514,7 +515,7 @@ for (var i = 0; i < content.length; i++) {
     finalVal += '\n';
 }
 
-console.log(finalVal);
+//console.log(finalVal);
   if(config.metaData.splitFiles)
   {
     let metadata_output_dir = outputPath + "metadata/"
