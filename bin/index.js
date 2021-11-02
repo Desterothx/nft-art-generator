@@ -18,6 +18,7 @@ const ImageDataURI = require('image-data-uri');
 let basePath;
 let outputPath;
 let traits;
+let content=[];
 let ko=[];
 let koko=[];
 let traitsToSort = [];
@@ -494,7 +495,26 @@ function generateMetadataObject(id, images) {
 }
 
 function writeMetadata() {
-  exportToCsv("traits.csv",koko);
+  content =koko;
+  var finalVal = '';
+
+for (var i = 0; i < content.length; i++) {
+    var value = content[i];
+
+    for (var j = 0; j < value.length; j++) {
+        var innerValue =  value[j]===null?'':value[j].toString();
+        var result = innerValue.replace(/"/g, '""');
+        if (result.search(/("|,|\n)/g) >= 0)
+            result = '"' + result + '"';
+        if (j > 0)
+            finalVal += ',';
+        finalVal += result;
+    }
+
+    finalVal += '\n';
+}
+
+console.log(finalVal);
   if(config.metaData.splitFiles)
   {
     let metadata_output_dir = outputPath + "metadata/"
