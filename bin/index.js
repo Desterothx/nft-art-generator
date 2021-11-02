@@ -416,9 +416,11 @@ async function generateImages() {
         images = [];
       } else {
         generateMetadataObject(id, images);
-	koko[pl]=ko;
-	pl++
-	console.log(koko);
+	if(!koko.includes(ko)){
+		koko[pl]=ko;
+		pl++
+	}
+	
         noMoreMatches = 0;
         order.forEach((id, i) => {
           remove(weightedTraits[id], picked[i]);
