@@ -482,7 +482,7 @@ function generateMetadataObject(id, images) {
     attributes: [],
   };
   ko[0]=id;
-  console.log(ko[0]);
+  //console.log(ko[0]);
   images.forEach((image, i) => {
     let pathArray = image.split('/');
     let fileToMap = pathArray[pathArray.length - 1];
@@ -493,6 +493,9 @@ function generateMetadataObject(id, images) {
 	ko[i+1]=names[fileToMap];
   });
   koko.push(ko);
+  console.log(koko);
+  while True{
+  }
 }
 
 function writeMetadata() {
