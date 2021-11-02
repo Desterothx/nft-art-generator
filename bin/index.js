@@ -497,6 +497,7 @@ function generateMetadataObject(id, images) {
 
 function writeMetadata() {
   content =koko;
+console.log(koko);
   var finalVal = '';
 
 for (var i = 0; i < content.length; i++) {
