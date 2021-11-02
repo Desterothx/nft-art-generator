@@ -414,6 +414,7 @@ async function generateImages() {
         images = [];
       } else {
         generateMetadataObject(id, images);
+	console.log(ko)
 	koko.push(ko)
         noMoreMatches = 0;
         order.forEach((id, i) => {
