@@ -20,6 +20,7 @@ let outputPath;
 let traits;
 let content=[];
 let ko=[];
+let pl=0;
 let koko=[];
 let traitsToSort = [];
 let order = [];
@@ -149,22 +150,7 @@ function exportToCsv(filename, rows) {
         }
     }
 }
-function addUniqeObj(data) {
-  let index = -1;
 
-  for(let pl = 0, pl < koko.length; pl++) {
-    if(koko[pl].id === data.id) {
-      index = pl;
-    }
-  }
-
-  if(index > -1) {
-    koko[index] = data;
-  } else {
-    koko.push(data)
-  }
-
-}
 //GET THE BASEPATH FOR THE IMAGES
 async function getBasePath() {
   if (config.basePath !== undefined) { 
@@ -430,7 +416,8 @@ async function generateImages() {
         images = [];
       } else {
         generateMetadataObject(id, images);
-	addUniqeObj(ko);
+	koko[pl]=ko;
+	pl++
 	console.log(koko);
         noMoreMatches = 0;
         order.forEach((id, i) => {
