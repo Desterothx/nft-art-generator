@@ -494,7 +494,7 @@ function generateMetadataObject(id, images) {
   });
   koko.push(ko);
   console.log(koko);
-  while True{
+  while (True){
   }
 }
 
