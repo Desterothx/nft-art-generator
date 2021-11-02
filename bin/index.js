@@ -414,6 +414,7 @@ async function generateImages() {
         images = [];
       } else {
         generateMetadataObject(id, images);
+	koko.push(ko)
         noMoreMatches = 0;
         order.forEach((id, i) => {
           remove(weightedTraits[id], picked[i]);
@@ -492,10 +493,6 @@ function generateMetadataObject(id, images) {
     });
 	ko[i+1]=names[fileToMap];
   });
-  koko.push(ko);
-  console.log(koko);
-  while (True){
-  }
 }
 
 function writeMetadata() {
@@ -518,7 +515,7 @@ for (var i = 0; i < content.length; i++) {
     finalVal += '\n';
 }
 
-//console.log(finalVal);
+console.log(finalVal);
   if(config.metaData.splitFiles)
   {
     let metadata_output_dir = outputPath + "metadata/"
