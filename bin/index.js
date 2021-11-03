@@ -333,7 +333,7 @@ async function setWeights(trait) {
   });
   const selectedWeights = await inquirer.prompt(weightPrompt);
   files.forEach((file, i) => {
-    weights[file] = selectedWeights[names[file] + '_weight']*150;
+    weights[file] = Math.round(selectedWeights[names[file] + '_weight']*150);
   });
   config.weights = weights;
 }
